@@ -19,23 +19,34 @@ describe('TodoList', () => {
 
   it('should render the todos', done => {
     component.create(bootstrap).then(() => {
-      const listElements = document.querySelectorAll('.item');
-      expect(listElements[0].innerHTML).toBe('Item 1');
+      const listElements = document.querySelectorAll('.item-text');
+      expect(listElements[0].innerHTML).toContain('Item 1');
       done();
     }).catch(e => {
       console.log(e.toString());
     })
   })
 
-  // it('should should check checkboxes for completed todos', done => {
-  //   component.create(bootstrap).then(() => {
-  //     const checkboxes = document.querySelectorAll('input');
-  //     expect(checkboxes[2].checked).toBe(true);
-  //     done();
-  //   }).catch(e => {
-  //     console.log(e.toString());
-  //   })
-  // })
+  it('should should check checkboxes for completed todos', done => {
+    component.create(bootstrap).then(() => {
+      const checkboxes = document.querySelectorAll('input');
+      expect(checkboxes[2].checked).toBe(true);
+      done();
+    }).catch(e => {
+      console.log(e.toString());
+    })
+  })
+
+  it('should should put a line through text for completed todos', done => {
+    component.create(bootstrap).then(() => {
+      const listElements = document.querySelectorAll('.item-text');
+      var htmlElement = listElements[2] as HTMLElement;
+      expect(htmlElement.style.textDecoration).toBe('line-through');
+      done();
+    }).catch(e => {
+      console.log(e.toString());
+    })
+  })
 
   afterEach(() => {
     component.dispose();
